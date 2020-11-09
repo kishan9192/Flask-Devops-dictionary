@@ -15,7 +15,7 @@ meaning = 'Meaning:'
 @app.route('/',methods=['POST'])
 def match():
     form = input_form()
-    dictionary = Dictionary(r'app\static\data.json') 
+    dictionary = Dictionary(r'app/static/data.json') 
     
     if form.validate_on_submit():
     	#user input with capital letter
@@ -46,7 +46,7 @@ def match():
 def suggest():
     try:
         word = request.args.get('form')
-        dictionary = Dictionary(r'app\static\data.json') 
+        dictionary = Dictionary(r'app/static/data.json') 
         output = dictionary.close_match(word)
         return render_template("radio_button.html",title='Dictionary',word=word,output=output)
 
@@ -56,10 +56,10 @@ def suggest():
 @app.route('/suggest',methods=['POST'])
 def display():
     word = request.args.get('form')
-    dictionary = Dictionary(r'app\static\data.json') 
+    dictionary = Dictionary(r'app/static/data.json') 
     output = dictionary.close_match(word) 
     if request.method =='POST':
-        if 'press_submit' in request.form:
+        if 'press_submit' in request.form: 
             suggest= request.form['suggest']
             display = dictionary.match(dictionary.find_key(suggest))
             return render_template("radio_button.html",title='Dictionary',word=word,output=output,display=display)
